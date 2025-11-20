@@ -13,7 +13,7 @@ const Gallery = () => {
       alt: "Açaí bowl",
     },
     {
-      url: "https://images.unsplash.com/photo-1551106652-a5bcf4b29e84?w=800&q=80",
+      url: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800&q=80",
       alt: "Bagels frescos",
     },
     {
