@@ -16,7 +16,7 @@ const Contact = () => {
           {/* Map */}
           <div className="rounded-lg overflow-hidden shadow-lg h-[400px]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.4259842684844!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzAwLjQiTiAzwrA0MicxMy42Ilc!5e0!3m2!1sen!2ses!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.0998289899553!2d-3.6987996!3d40.4509274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4229d1155baed3%3A0x6bc4baf716cffcaa!2sInfinito%20Specialty%20Coffee%20%26%20Brunch%20Bistro!5e0!3m2!1ses-419!2ses!4v1763651963025!5m2!1ses-419!2ses"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -34,9 +34,9 @@ const Contact = () => {
               <div>
                 <h3 className="font-semibold text-lg mb-1 text-foreground">Dirección</h3>
                 <p className="text-muted-foreground">
-                  Calle del Brunch, 123
+                  C. de la Reina Mercedes, 12, Tetuán
                   <br />
-                  28001 Madrid, España
+                  28020 Madrid, España
                 </p>
               </div>
             </div>
@@ -46,9 +46,9 @@ const Contact = () => {
               <div>
                 <h3 className="font-semibold text-lg mb-1 text-foreground">Horarios</h3>
                 <p className="text-muted-foreground">
-                  Lunes - Viernes: 8:00 - 17:00
+                  Jueves - Domingo: 9:00 - 20:00
                   <br />
-                  Sábado - Domingo: 9:00 - 18:00
+                  Lunes - Miércoles: 9:00 - 19:00
                 </p>
               </div>
             </div>
@@ -72,7 +72,7 @@ const Contact = () => {
                 className="bg-infinito-red hover:bg-infinito-red/90 text-infinito-white rounded-full px-6"
               >
                 <a
-                  href="https://instagram.com/infinitocafe"
+                  href="https://www.instagram.com/infinitocafemadrid"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2"
