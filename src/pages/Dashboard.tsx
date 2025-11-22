@@ -12,6 +12,16 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Card,
   CardContent,
   CardDescription,
@@ -84,6 +94,8 @@ const Dashboard = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [currentView, setCurrentView] = useState<"products" | "categories">("products");
   const [newCategoryName, setNewCategoryName] = useState("");
+  const [deleteProductId, setDeleteProductId] = useState<string | null>(null);
+  const [deleteCategoryName, setDeleteCategoryName] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -159,6 +171,7 @@ const Dashboard = () => {
       description: "El producto se ha eliminado de la carta.",
       variant: "destructive",
     });
+    setDeleteProductId(null);
   };
 
   const filteredProducts = selectedCategory === "all" 
@@ -225,6 +238,7 @@ const Dashboard = () => {
       title: "Categoría eliminada",
       description: "La categoría se ha eliminado correctamente.",
     });
+    setDeleteCategoryName(null);
   };
 
   return (
@@ -329,7 +343,7 @@ const Dashboard = () => {
                     <Button
                       variant="destructive"
                       size="sm"
-                      onClick={() => handleDelete(product.id)}
+                      onClick={() => setDeleteProductId(product.id)}
                       className="flex-1 text-xs md:text-sm"
                     >
                       <Trash2 className="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4" />
@@ -388,7 +402,7 @@ const Dashboard = () => {
                       <Button
                         variant="destructive"
                         size="sm"
-                        onClick={() => handleDeleteCategory(category)}
+                        onClick={() => setDeleteCategoryName(category)}
                         className="flex-1 text-xs md:text-sm"
                         disabled={productCount > 0}
                       >
@@ -556,6 +570,46 @@ const Dashboard = () => {
           </form>
         </DialogContent>
       </Dialog>
+
+      <AlertDialog open={deleteProductId !== null} onOpenChange={() => setDeleteProductId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. El producto será eliminado permanentemente de la carta.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deleteProductId && handleDelete(deleteProductId)}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Eliminar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={deleteCategoryName !== null} onOpenChange={() => setDeleteCategoryName(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. La categoría será eliminada permanentemente.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => deleteCategoryName && handleDeleteCategory(deleteCategoryName)}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Eliminar
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
