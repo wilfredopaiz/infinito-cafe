@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import MenuCard from "./MenuCard";
 import MenuModal from "./MenuModal";
 import { menuItems, menuCategories, MenuItem } from "@/data/menuData";
@@ -7,6 +8,27 @@ import { menuItems, menuCategories, MenuItem } from "@/data/menuData";
 const MenuSection = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isStuck, setIsStuck] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsStuck(!entry.isIntersecting);
+      },
+      { threshold: 0, rootMargin: "-64px 0px 0px 0px" } // 64px is the navbar height (top-16)
+    );
+
+    if (sentinelRef.current) {
+      observer.observe(sentinelRef.current);
+    }
+
+    return () => {
+      if (sentinelRef.current) {
+        observer.unobserve(sentinelRef.current);
+      }
+    };
+  }, []);
 
   const handleCardClick = (item: MenuItem) => {
     setSelectedItem(item);
@@ -29,18 +51,40 @@ const MenuSection = () => {
         </div>
 
         <Tabs defaultValue={menuCategories[0]} className="w-full">
-          <div className="sticky top-16 z-40 bg-background pb-4 -mt-4 pt-4">
-            <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-secondary/50 p-2 rounded-lg h-auto">
-              {menuCategories.map((category) => (
-                <TabsTrigger
-                  key={category}
-                  value={category}
-                  className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all"
-                >
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+          {/* Sentinel element to detect when menu becomes sticky */}
+          <div ref={sentinelRef} className="h-0" />
+          
+          <div className={`sticky top-16 z-40 bg-background transition-all ${isStuck ? 'pb-2 -mx-4 px-0' : 'pb-4 -mt-4 pt-4'}`}>
+            {isStuck ? (
+              // Horizontal scrollable menu when stuck (mobile)
+              <ScrollArea className="w-full">
+                <TabsList className="w-max flex flex-nowrap justify-start gap-2 bg-secondary/50 p-2 h-auto md:w-full md:justify-center">
+                  {menuCategories.map((category) => (
+                    <TabsTrigger
+                      key={category}
+                      value={category}
+                      className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all whitespace-nowrap"
+                    >
+                      {category}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+            ) : (
+              // Normal wrapped menu when not stuck
+              <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-secondary/50 p-2 rounded-lg h-auto">
+                {menuCategories.map((category) => (
+                  <TabsTrigger
+                    key={category}
+                    value={category}
+                    className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all"
+                  >
+                    {category}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            )}
           </div>
 
           {menuCategories.map((category) => (
