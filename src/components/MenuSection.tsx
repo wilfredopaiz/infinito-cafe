@@ -29,20 +29,22 @@ const MenuSection = () => {
         </div>
 
         <Tabs defaultValue={menuCategories[0]} className="w-full">
-          <TabsList className="w-full flex flex-wrap justify-center gap-2 mb-8 bg-secondary/50 p-2 rounded-lg h-auto">
-            {menuCategories.map((category) => (
-              <TabsTrigger
-                key={category}
-                value={category}
-                className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all"
-              >
-                {category}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="sticky top-16 z-40 bg-background pb-4 -mt-4 pt-4">
+            <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-secondary/50 p-2 rounded-lg h-auto">
+              {menuCategories.map((category) => (
+                <TabsTrigger
+                  key={category}
+                  value={category}
+                  className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all"
+                >
+                  {category}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           {menuCategories.map((category) => (
-            <TabsContent key={category} value={category} className="fade-in">
+            <TabsContent key={category} value={category} className="fade-in mt-8">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {menuItems
                   .filter((item) => item.category === category)
