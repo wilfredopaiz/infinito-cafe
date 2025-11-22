@@ -25,10 +25,10 @@ const Hero = () => {
           Infinito Café
         </h1>
         <p className="text-xl md:text-2xl text-infinito-white/90 mb-6 font-light">
-          Brunch • Café • Fresh Bowls • Bagels
+          Specialty Coffee • Brunch • Fresh Bowls • Bagels
         </p>
         <p className="text-lg md:text-xl text-infinito-white/80 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Sabores frescos, recetas modernas y el mejor brunch de la ciudad. Bienvenido a Infinito Café.
+          Inspirados en sabores asiáticos, nos dedicamos a traeros un brunch mediterráneo con un toque diferente.
         </p>
         <Button
           onClick={scrollToCarta}

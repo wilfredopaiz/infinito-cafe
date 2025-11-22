@@ -1,27 +1,34 @@
+import gal1 from "../assets/galeria-1.jpg";
+import gal2 from "../assets/galeria-2.jpg";
+import gal3 from "../assets/galeria-3.jpg";
+import gal4 from "../assets/galeria-4.jpg";
+import gal5 from "../assets/galeria-5.jpg";
+import gal6 from "../assets/galeria-6.jpg";
+
 const Gallery = () => {
   const galleryImages = [
     {
-      url: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80",
+      url: gal1,
       alt: "Café artesanal",
     },
     {
-      url: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
+      url: gal2,
       alt: "Brunch premium",
     },
     {
-      url: "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=800&q=80",
+      url: gal3,
       alt: "Açaí bowl",
     },
     {
-      url: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800&q=80",
+      url: gal4,
       alt: "Bagels frescos",
     },
     {
-      url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80",
+      url: gal5,
       alt: "Ensalada fresca",
     },
     {
-      url: "https://images.unsplash.com/photo-1525351484163-7529414344d8?w=800&q=80",
+      url: gal6,
       alt: "Tostadas gourmet",
     },
   ];

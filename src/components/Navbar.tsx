@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, LogIn } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import logo from "../assets/LOGO.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +46,10 @@ const Navbar = () => {
               e.preventDefault();
               scrollToSection("#home");
             }}
-            className="text-infinito-white font-bold text-xl md:text-2xl tracking-tight hover:text-infinito-red transition-colors"
+            className="flex items-center space-x-2 text-infinito-white font-bold text-xl md:text-2xl tracking-tight hover:text-infinito-red transition-colors"
           >
-            Infinito Café
+            <img src={logo} alt="Infinito Café" className="h-8 md:h-10" />
+            <span className="sr-only">Infinito Café</span>
           </a>
 
           {/* Desktop Navigation */}
