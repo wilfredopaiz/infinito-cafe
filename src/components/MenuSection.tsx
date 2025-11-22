@@ -89,7 +89,7 @@ const MenuSection = () => {
           
           <div
             ref={stickyRef}
-            className={`sticky top-16 z-40 bg-background transition-all ${isStuck ? '-mx-4 px-0' : 'pb-4 -mt-4 pt-4'}`}
+            className={`sticky top-16 z-40 bg-background transition-all ${isStuck ? '-mx-4 px-0 md:pt-4' : 'pb-4 -mt-4 pt-4'}`}
           >
             {isStuck ? (
               // Horizontal scrollable menu when stuck (mobile)
