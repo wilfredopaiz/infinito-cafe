@@ -9,7 +9,7 @@ const NAVBAR_HEIGHT = 64;
 
 const MenuSection = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
-  const [activeCategory, setActiveCategory] = useState<string>(menuCategories[0]);
+  const [activeCategory, setActiveCategory] = useState<string>(menuCategories[0].name);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isStuck, setIsStuck] = useState(false);
   const [stickyHeight, setStickyHeight] = useState(0);
@@ -95,13 +95,13 @@ const MenuSection = () => {
               // Horizontal scrollable menu when stuck (mobile)
               <ScrollArea className="w-full">
                 <TabsList className="w-max flex flex-nowrap justify-start gap-2 bg-secondary/50 p-2 h-auto md:w-full md:justify-center">
-                  {menuCategories.map((category) => (
+                  {menuCategories.map(({ name }) => (
                     <TabsTrigger
-                      key={category}
-                      value={category}
+                      key={name}
+                      value={name}
                       className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all whitespace-nowrap"
                     >
-                      {category}
+                      {name}
                     </TabsTrigger>
                   ))}
                 </TabsList>
@@ -110,34 +110,66 @@ const MenuSection = () => {
             ) : (
               // Normal wrapped menu when not stuck
               <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-secondary/50 p-2 rounded-lg h-auto">
-                {menuCategories.map((category) => (
+                {menuCategories.map(({ name }) => (
                   <TabsTrigger
-                    key={category}
-                    value={category}
+                    key={name}
+                    value={name}
                     className="data-[state=active]:bg-infinito-red data-[state=active]:text-infinito-white px-4 py-2 rounded-md transition-all"
                   >
-                    {category}
+                    {name}
                   </TabsTrigger>
                 ))}
               </TabsList>
             )}
           </div>
 
-          {menuCategories.map((category) => (
-            <TabsContent key={category} value={category} className="fade-in mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {menuItems
-                  .filter((item) => item.category === category)
-                  .map((item) => (
-                    <MenuCard
-                      key={item.id}
-                      item={item}
-                      onClick={() => handleCardClick(item)}
-                    />
-                  ))}
-              </div>
-            </TabsContent>
-          ))}
+          {menuCategories.map(({ name, sections }) => {
+            const hasSections = Array.isArray(sections) && sections.length > 0;
+            return (
+              <TabsContent key={name} value={name} className="fade-in mt-8 space-y-10">
+                {hasSections ? (
+                  sections.map((section) => {
+                    const sectionItems = menuItems.filter(
+                      (item) => item.category === name && item.section === section.name
+                    );
+                    if (!sectionItems.length) return null;
+                    return (
+                      <div key={section.name} className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <div className="h-px flex-1 bg-border" />
+                          <h3 className="text-xl font-semibold text-infinito-red whitespace-nowrap text-center">
+                            {section.name}
+                          </h3>
+                          <div className="h-px flex-1 bg-border" />
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                          {sectionItems.map((item) => (
+                            <MenuCard
+                              key={item.id}
+                              item={item}
+                              onClick={() => handleCardClick(item)}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {menuItems
+                      .filter((item) => item.category === name)
+                      .map((item) => (
+                        <MenuCard
+                          key={item.id}
+                          item={item}
+                          onClick={() => handleCardClick(item)}
+                        />
+                      ))}
+                  </div>
+                )}
+              </TabsContent>
+            );
+          })}
         </Tabs>
 
         <MenuModal item={selectedItem} isOpen={isModalOpen} onClose={handleCloseModal} />
