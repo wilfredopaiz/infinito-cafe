@@ -5,7 +5,7 @@ import MenuCard from "./MenuCard";
 import MenuModal from "./MenuModal";
 import { menuItems, menuCategories, MenuItem } from "@/data/menuData";
 
-const NAVBAR_HEIGHT = 64;
+const NAVBAR_HEIGHT = 80;
 
 const MenuSection = () => {
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
@@ -90,7 +90,7 @@ const MenuSection = () => {
 
           <div
             ref={stickyRef}
-            className={`sticky top-16 z-40 bg-background transition-all ${isStuck ? '-mx-4 px-0 md:pt-4' : 'pb-4 -mt-4 pt-4'}`}
+            className={`sticky top-16 md:top-20 z-40 bg-background transition-all ${isStuck ? '-mx-4 px-0 md:pt-4' : 'pb-4 -mt-4 pt-4'}`}
           >
             {isStuck ? (
               // Horizontal scrollable menu when stuck (mobile)

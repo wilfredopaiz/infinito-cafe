@@ -1,13 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 import heroImage from "@/assets/hero-brunch.jpg";
 
 const Hero = () => {
-  const scrollToCarta = () => {
-    const element = document.querySelector("#carta");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const navigate = useNavigate();
 
   return (
     <section id="home" className="relative h-screen min-h-[600px] flex items-center justify-center">
@@ -31,7 +27,7 @@ const Hero = () => {
           Inspirados en sabores asiáticos, nos dedicamos a traeros un brunch mediterráneo con un toque diferente.
         </p>
         <Button
-          onClick={scrollToCarta}
+          onClick={() => navigate("/carta")}
           size="lg"
           className="bg-infinito-red hover:bg-infinito-red/90 text-infinito-white font-semibold px-8 py-6 text-lg rounded-full shadow-lg hover:shadow-xl transition-all hover-scale"
         >
