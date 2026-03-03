@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useLayoutEffect } from "react";
+﻿import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import MenuCard from "./MenuCard";
@@ -14,6 +14,7 @@ const MenuSection = () => {
   const [isStuck, setIsStuck] = useState(false);
   const [stickyHeight, setStickyHeight] = useState(0);
   const [showImages, setShowImages] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const stickyRef = useRef<HTMLDivElement>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const menuStartRef = useRef<HTMLDivElement>(null);
@@ -73,7 +74,7 @@ const MenuSection = () => {
   };
 
   return (
-    <section id="carta" className="py-20 bg-background">
+    <section id="carta" className={`py-20 bg-background ${darkMode ? "dark" : ""}`}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">Nuestra Carta</h2>
@@ -205,59 +206,106 @@ const MenuSection = () => {
       </div>
 
       {/* Botón flotante de configuración de vista */}
-      <button
-        id="menu-view-toggle"
-        onClick={() => setShowImages((prev) => !prev)}
-        title={showImages ? "Ver carta sin imágenes" : "Ver carta con imágenes"}
-        className={`
-          fixed bottom-6 right-6 z-50
-          flex items-center gap-2
-          px-4 py-3 rounded-full
-          shadow-lg hover:shadow-xl
-          border border-border/50
-          bg-card text-foreground
-          hover:bg-infinito-red hover:text-infinito-white hover:border-infinito-red
-          transition-all duration-300 group
-          text-sm font-medium
-        `}
-      >
-        {showImages ? (
-          <>
-            {/* Sin imágenes icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 flex-shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h10M4 18h8" />
-            </svg>
-            <span className="hidden sm:inline">Carta clásica</span>
-          </>
-        ) : (
-          <>
-            {/* Con imágenes icon */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 flex-shrink-0"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-              <rect x="14" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-              <rect x="3" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-              <rect x="14" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <span className="hidden sm:inline">Ver con fotos</span>
-          </>
-        )}
-      </button>
+      <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        <button
+          id="menu-view-toggle"
+          onClick={() => setShowImages((prev) => !prev)}
+          title={showImages ? "Ver carta sin imágenes" : "Ver carta con imágenes"}
+          className={`
+            flex items-center gap-2
+            px-4 py-3 rounded-full
+            shadow-lg hover:shadow-xl
+            border border-border/50
+            bg-card text-foreground
+            hover:bg-infinito-red hover:text-infinito-white hover:border-infinito-red
+            transition-all duration-300 group
+            text-sm font-medium
+          `}
+        >
+          {showImages ? (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.8}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h10M4 18h8" />
+              </svg>
+              <span className="hidden sm:inline">Carta clásica</span>
+            </>
+          ) : (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.8}
+              >
+                <rect x="3" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="14" y="3" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="3" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+                <rect x="14" y="14" width="7" height="7" rx="1" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="hidden sm:inline">Ver con fotos</span>
+            </>
+          )}
+        </button>
+
+        <button
+          id="menu-theme-toggle"
+          onClick={() => setDarkMode((prev) => !prev)}
+          title={darkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+          className={`
+            flex items-center gap-2
+            px-4 py-3 rounded-full
+            shadow-lg hover:shadow-xl
+            border border-border/50
+            bg-card text-foreground
+            hover:bg-infinito-red hover:text-infinito-white hover:border-infinito-red
+            transition-all duration-300
+            text-sm font-medium
+          `}
+        >
+          {darkMode ? (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.8}
+              >
+                <circle cx="12" cy="12" r="4" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m0 16v2M2 12h2m16 0h2m-2.9-7.1-1.4 1.4M5.3 18.7l1.4-1.4m0-10.8L5.3 5.3m13.4 13.4-1.4-1.4" />
+              </svg>
+              <span className="hidden sm:inline">Modo claro</span>
+            </>
+          ) : (
+            <>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-5 h-5 flex-shrink-0"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.8}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+              </svg>
+              <span className="hidden sm:inline">Modo oscuro</span>
+            </>
+          )}
+        </button>
+      </div>
     </section>
   );
 };
 
 export default MenuSection;
+

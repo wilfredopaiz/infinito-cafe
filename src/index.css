@@ -103,7 +103,13 @@ All colors MUST be HSL.
 
 @layer utilities {
   .hover-scale {
-    @apply transition-transform duration-300 hover:scale-105;
+    @apply transition-transform duration-300;
+  }
+
+  @media (hover: hover) {
+    .hover-scale:hover {
+      @apply scale-105;
+    }
   }
 
   .fade-in {
