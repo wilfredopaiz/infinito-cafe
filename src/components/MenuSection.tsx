@@ -55,6 +55,17 @@ const MenuSection = () => {
     };
   }, [stickyHeight]);
 
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    html.classList.toggle("carta-dark-bg", darkMode);
+    body.classList.toggle("carta-dark-bg", darkMode);
+    return () => {
+      html.classList.remove("carta-dark-bg");
+      body.classList.remove("carta-dark-bg");
+    };
+  }, [darkMode]);
+
   const handleCardClick = (item: MenuItem) => {
     setSelectedItem(item);
     setIsModalOpen(true);

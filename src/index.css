@@ -99,6 +99,14 @@ All colors MUST be HSL.
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
   }
+
+  html.carta-dark-bg {
+    background-color: hsl(var(--infinito-black));
+  }
+
+  body.carta-dark-bg {
+    background-color: hsl(var(--infinito-black));
+  }
 }
 
 @layer utilities {
